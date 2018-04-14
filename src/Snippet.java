@@ -1,14 +1,13 @@
-/* Assignment: 
+/* Assignment: CS1120 LA7 Course Registration System
  * Author: Jennifer N. Smith
- * Date:
- * Reference: 
+ * Date: 4/14/18
+ * Reference: LA7_Spring2018.docx (LA7 Instructions)
  */
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-
 
 public class Snippet {
 	public static void main(String[] args) throws IOException {

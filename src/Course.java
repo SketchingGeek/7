@@ -1,3 +1,8 @@
+/* Assignment: CS1120 LA7 Course Registration System
+ * Author: Jennifer N. Smith
+ * Date: 4/14/18
+ * Reference: LA7_Spring2018.docx (LA7 Instructions)
+ */
 
 
 import java.util.ArrayList;
