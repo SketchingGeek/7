@@ -5,8 +5,9 @@
  */
 
 /**
+ * Class that models a student request
  * 
- * @author jennifersmith
+ * @author Jennifer Smith
  *
  */
 
@@ -42,27 +43,22 @@ public class Request implements Comparable<Request> {
 	}
 
 	/**
-	 * Ranks students requests
+	 * Returns number of years to graduation (0 for seniors, 1 for juniors
+	 * etc.). This is determined from the student’s level – senior, junior, etc.
 	 * 
 	 * @return number of years to graduation (0 for seniors, 1 for juniors
 	 *         etc.). This is determined from the student’s level – senior,
-	 *         junior, etc. Favors computer science majors for computer science
-	 *         classes.
+	 *         junior, etc.
 	 * 
 	 */
 
 	public int yearsFromGraduation() {
 
-		//jeremy A has 2 outputs but not in the example needs to rank non majors?
 		if (studentLevel.equals("Senior")) {
-			if (studentMajor.equals("CS")) {
-				return 0;	
-			}
-			else {
-				return 4; 
-			}
 
+			return 0;
 		}
+
 		if (studentLevel.equals("Junior")) {
 			return 1;
 
@@ -81,13 +77,36 @@ public class Request implements Comparable<Request> {
 	}
 
 	/**
+	 * Compares the instance with the parameter. If instance and parameter have
+	 * same major, return a comparison of the years from graduation. If the
+	 * parameter has the same major as the course then return +5. If the
+	 * instance has the same major as the course then return - 5. Otherwise
+	 * return a comparison of the years to graduation.
 	 * 
+	 * @param o
+	 *            request that this instance is being compared to
+	 * @return negative numbers mean the instance is a higher priority then the
+	 *         param
 	 */
-	
+
 	@Override
 	public int compareTo(Request o) {
+		if (this.studentMajor.equals(o.studentMajor)) {
+			int rank = Integer.compare(this.yearsFromGraduation(),
+					((Request) o).yearsFromGraduation());
+
+			return rank;
+
+		}
+		if (this.studentMajor.equals(this.courseDept)) {
+			return -5;
+		}
+		if (o.studentMajor.equals(o.courseDept)) {
+			return +5;
+		}
 		int rank = Integer.compare(this.yearsFromGraduation(),
 				((Request) o).yearsFromGraduation());
+
 		return rank;
 	}
 

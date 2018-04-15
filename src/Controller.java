@@ -1,3 +1,4 @@
+
 /* Assignment: CS1120 LA7 Course Registration System
  * Author: Jennifer N. Smith
  * Date: 4/14/18
@@ -10,6 +11,13 @@ import java.util.ArrayList;
 
 import javax.swing.plaf.synth.SynthSpinnerUI;
 
+/**
+ * Manages courses and student requests
+ * 
+ * @author Jennifer Smith
+ *
+ */
+
 public class Controller implements IController {
 
 	PriorityQueue<Request> requestQueue;
@@ -17,6 +25,18 @@ public class Controller implements IController {
 	BufferedReader fileIn;
 	BufferedReader fileIn1;
 
+	/**
+	 * Constructs a controller
+	 * 
+	 * @param requestQueue
+	 *            priority queue to be populated with student requests
+	 * @param courses
+	 *            list of courses
+	 * @param fileIn
+	 *            buffered reader for student request
+	 * @param fileIn1
+	 *            buffered reader for courses
+	 */
 	public Controller(PriorityQueue<Request> requestQueue,
 			ArrayList<Course> courses, BufferedReader fileIn,
 			BufferedReader fileIn1) {
@@ -27,6 +47,11 @@ public class Controller implements IController {
 		this.fileIn1 = fileIn1;
 	}
 
+	/**
+	 * Read courses from input file and add each course to an arraylist of
+	 * courses. Close file.
+	 */
+
 	@Override
 	public void readCourseFile() {
 
@@ -34,7 +59,6 @@ public class Controller implements IController {
 
 		try {
 			while ((thisLine = fileIn1.readLine()) != null) {
-				//System.out.println(thisLine);
 				String fields[] = thisLine.split(",");
 
 				if (fields.length == 5) {
@@ -51,6 +75,11 @@ public class Controller implements IController {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * Read each request from the request input file and use it to create a
+	 * Request object.
+	 */
 
 	@Override
 	public void readRequestFile() {
@@ -78,11 +107,23 @@ public class Controller implements IController {
 		}
 	}
 
+	/**
+	 * Store the request object in the requests priority queue.
+	 */
+
 	@Override
 	public void addRequest(Request req) {
-		requestQueue.add(req);
+		requestQueue.enqueue(req);
 
 	}
+
+	/**
+	 * Process all the requests as follows: if request can be granted, update
+	 * the relevant classlist, update the class/course capacity, print out a
+	 * message that the student who made that request has been successfully
+	 * registered for that course. Else, print out a message that student could
+	 * not be registered.
+	 */
 
 	@Override
 	public void processRequests() {
@@ -95,26 +136,36 @@ public class Controller implements IController {
 		// student could not be registered.
 
 		while (!requestQueue.isEmpty()) {
-			Request req = requestQueue.poll();
-			System.out.println(req+" processed.");
+			Request req = requestQueue.dequeue();
+			System.out.println(req + " processed.");
 			Course course = getCourse(req.courseDept, req.courseNumber);
 			if (course == null) {
 				System.out.println("Requested course not found");
 
-			}
-			else {
+			} else {
 				if (course.isFull()) {
-					System.out.println(req.studentName+" cannot register for " +req.courseDept+" "+req.courseNumber);
+					System.out.println(req.studentName + " cannot register for "
+							+ req.courseDept + " " + req.courseNumber);
 				} else {
 					course.addStudent(req.studentName);
-					System.out.println(req.studentName+" successfully registered "+req.courseDept+" "+req.courseNumber);
+					System.out.println(
+							req.studentName + " successfully registered "
+									+ req.courseDept + " " + req.courseNumber);
 				}
 			}
-	
+
 		}
 	}
 
 	@Override
+	/**
+	 * Return the course object with data values that match the parameters
+	 * received.
+	 * @param courseDept course department
+	 * @param courseNumber course number
+	 * @return course object with data values that match the parameters
+	 * received.
+	 */
 	public Course getCourse(String courseDept, int courseNumber) {
 		// Return the course object with data values that match the parameters
 		// received.
@@ -130,6 +181,9 @@ public class Controller implements IController {
 	}
 
 	@Override
+	/**
+	 * Print classlists for all courses.
+	 */
 	public void printClassList() {
 		// Print classlists for all courses.
 		for (Course oneCourse : courses) {

@@ -1,3 +1,4 @@
+
 /* Assignment: CS1120 LA7 Course Registration System
  * Author: Jennifer N. Smith
  * Date: 4/14/18
@@ -6,71 +7,69 @@
 
 import java.util.ArrayList;
 
-public class PriorityQueue<T extends Comparable<? super T>> {
+/**
+ * Priority queue implemented using linked lists
+ * 
+ * @author Jennifer Smith
+ *
+ * @param <E>
+ *            type of data in the queue
+ */
+public class PriorityQueue<E extends Comparable<? super E>> {
+	Node<E> head = null;
 
-	private ArrayList<T> arrayHeap = new ArrayList<>();
-
-	public void add(T t) {
-		arrayHeap.add(t);
-		siftUp();
-		return;
-	}
-
-	private void siftUp() {
-		int p = arrayHeap.size() - 1;
-		while (p != 0) {
-			int parent = (p - 1) / 2;
-			if (arrayHeap.get(p).compareTo(arrayHeap.get(parent)) >= 0) {
-				return;
-			} else {
-				T temp = arrayHeap.get(parent);
-				arrayHeap.set(parent, arrayHeap.get(p));
-				arrayHeap.set(p, temp);
-				p = parent;
-
-			}
-		}
-	}
+	/**
+	 * Determine if the priority queue is empty.
+	 * 
+	 * @return true if the queue is empty
+	 */
 
 	public boolean isEmpty() {
-		return arrayHeap.isEmpty();
+		return head == null;
 	}
 
-	public T poll() {
-		if (isEmpty()) {
-			return null;
-		} else {
-			T val = arrayHeap.get(0);
-			arrayHeap.set(0, arrayHeap.get(arrayHeap.size() - 1));
-			arrayHeap.remove(arrayHeap.size() - 1);
-			siftDown();
-			return val;
-		}
+	/**
+	 * Add object added to the priority queue taking into consideration the
+	 * rules governing priority.
+	 * 
+	 * @param data
+	 *            to be added to the queue
+	 */
 
-	}
+	public void enqueue(E data) {
+		Node<E> next = head;
+		Node<E> prev = null;
 
-	private void siftDown() {
-		int p = 0;
-		int size = arrayHeap.size();
-		while (2 * p + 1 < size) {
-			int leftChildPos = 2 * p + 1;
-			int rightChildPos = leftChildPos + 1;
-			int minChildPos = leftChildPos;
-			if (rightChildPos < size) {
-				if (arrayHeap.get(rightChildPos)
-						.compareTo(arrayHeap.get(leftChildPos)) < 0) {
-					minChildPos = rightChildPos;
-				}
-			}
-			if (arrayHeap.get(p).compareTo(arrayHeap.get(minChildPos)) <= 0) {
+		while (next != null) {
+			if (next.getData().compareTo(data) > 0) {
+				// insert data between prev and next
 				break;
-			} else {
-				T temp = arrayHeap.get(p);
-				arrayHeap.set(p, arrayHeap.get(minChildPos));
-				arrayHeap.set(minChildPos, temp);
 			}
-			p = minChildPos;
+			prev = next;
+			next = next.getNext();
 		}
+		Node<E> dataNode = new Node<>(data, next);
+		if (prev == null) {
+			head = dataNode;
+		} else {
+			prev.setNext(dataNode);
+		}
+	}
+
+	/**
+	 * Remove the object with highest priority (at the front of the queue) from
+	 * the priority queue.
+	 * 
+	 * @return data
+	 */
+
+	public E dequeue() {
+		Node<E> top = head;
+		if (head == null) {
+			return null;
+		}
+		head = head.getNext();
+		return top.getData();
 	}
 
 }
