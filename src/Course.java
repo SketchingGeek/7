@@ -6,7 +6,6 @@
 
 
 import java.util.ArrayList;
-import java.util.PriorityQueue;
 
 public class Course implements ICourse {
 	// This is a comma-separated input file. 
@@ -14,8 +13,14 @@ public class Course implements ICourse {
 	String courseDept;
 	int courseNumber;
 	int capacity;
-	//PriorityQueue<Request> requestQueue = new PriorityQueue<Request>();
 	ArrayList <String> students = new ArrayList <String> ();
+	
+	/**
+	 * Constructs a course
+	 * @param courseDept Course department
+	 * @param courseNumber Course number
+	 * @param capacity Course capacity
+	 */
 	
 	public Course(String courseDept,int courseNumber,int capacity) { 
 		this.courseDept = courseDept;
@@ -24,17 +29,29 @@ public class Course implements ICourse {
 		
 	}
 	
+	/**
+	 * Determine if the capacity for this course has been reached.
+	 */
+	
 	@Override
 	public boolean isFull() {
 		
 		return (capacity == students.size());
 	}
 
+	/**
+	 * Add this student to the arraylist for enrolled students for this course.
+	 */
+	
 	@Override
 	public void addStudent(String name) {
 		students.add(name);
 	}
 
+	/**
+	 * Print the class list for this course.
+	 */
+	
 	@Override
 	public void printClassList() {
 		System.out.println("\nClass List for "+courseDept+" "+courseNumber);

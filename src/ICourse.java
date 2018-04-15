@@ -4,13 +4,17 @@
  * Reference: LA7_Spring2018.docx (LA7 Instructions)
  */
 
-public interface ICourse{
+public interface ICourse {
 	// Determine if the capacity for this course has been reached.
-boolean isFull();
+	boolean isFull();
+
 	// Add this student to the arraylist for enrolled students for this course.
 	void addStudent(String name);
-// Print the classlist for this course.
+
+	// Print the classlist for this course.
 	void printClassList();
-	// Determines if this course object is the same as the object received as parameter.
+
+	// Determines if this course object is the same as the object received as
+	// parameter.
 	boolean equals(Object arg0);
 }
