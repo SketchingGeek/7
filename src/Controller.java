@@ -127,13 +127,6 @@ public class Controller implements IController {
 
 	@Override
 	public void processRequests() {
-		// Process all the requests as follows: if request can be granted,
-		// update the relevant classlist,
-		// update the class/course capacity, print out a message that the
-		// student who made that
-		// request has been successfully registered for that course. Else, print
-		// out a message that
-		// student could not be registered.
 
 		while (!requestQueue.isEmpty()) {
 			Request req = requestQueue.dequeue();
@@ -167,8 +160,6 @@ public class Controller implements IController {
 	 * received.
 	 */
 	public Course getCourse(String courseDept, int courseNumber) {
-		// Return the course object with data values that match the parameters
-		// received.
 
 		for (Course oneCourse : courses) {
 			if (courseDept.equals(oneCourse.courseDept)
@@ -185,7 +176,7 @@ public class Controller implements IController {
 	 * Print classlists for all courses.
 	 */
 	public void printClassList() {
-		// Print classlists for all courses.
+
 		for (Course oneCourse : courses) {
 			oneCourse.printClassList();
 		}
