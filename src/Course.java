@@ -58,8 +58,9 @@ public class Course implements ICourse {
 	/**
 	 * Add this student to the arraylist for enrolled students for this course.
 	 * 
-	 * @param Student
-	 *            name
+	 * @param name
+	 *            Student name
+	 * 
 	 * 
 	 */
 
@@ -84,7 +85,9 @@ public class Course implements ICourse {
 	/**
 	 * Determines if this course object is the same as the object received as
 	 * parameter.
-	 * @param course object that the instance is being compared to
+	 * 
+	 * @param arg0
+	 *            course object that the instance is being compared to
 	 * @return true if parameter and instance are the same
 	 */
 	@Override
